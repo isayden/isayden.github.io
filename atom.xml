@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ayden&#39;Blog</title>
+  <icon>http://example.com/icon.png</icon>
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-02-24T08:18:19.683Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Ayden</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git 配置</title>
+    <link href="http://example.com/2023/02/21/Git-%E9%85%8D%E7%BD%AE/"/>
+    <id>http://example.com/2023/02/21/Git-%E9%85%8D%E7%BD%AE/</id>
+    <published>2023-02-21T08:11:53.000Z</published>
+    <updated>2023-02-24T08:18:19.683Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;配置用户信息&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight-wrap&quot; data-rel=&quot;Verilog&quot;&gt;&lt;figure class=&quot;iseeu highlight verilog&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://example.com/categories/tools/"/>
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2023/02/19/privateNotes/kubernetes/Learn%20a%20little%20every%20day/"/>
+    <id>http://example.com/2023/02/19/privateNotes/kubernetes/Learn%20a%20little%20every%20day/</id>
+    <published>2023-02-19T13:45:31.542Z</published>
+    <updated>2023-02-20T10:24:46.333Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;div class=&quot;highlight-wrap&quot; data-rel=&quot;Bash&quot;&gt;&lt;figure class=&quot;iseeu highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2023/02/19/privateNotes/prometheus/Learn%20a%20little%20every%20day/"/>
+    <id>http://example.com/2023/02/19/privateNotes/prometheus/Learn%20a%20little%20every%20day/</id>
+    <published>2023-02-19T13:45:25.709Z</published>
+    <updated>2023-02-20T10:24:43.557Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2023/02/19/privateNotes/python/Learn%20a%20little%20every%20day/"/>
+    <id>http://example.com/2023/02/19/privateNotes/python/Learn%20a%20little%20every%20day/</id>
+    <published>2023-02-19T13:44:52.310Z</published>
+    <updated>2023-02-21T02:25:31.077Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用Charles抓取微信公众号中的cookie</title>
+    <link href="http://example.com/2023/02/19/%E4%BD%BF%E7%94%A8Charles%E6%8A%93%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E4%B8%AD%E7%9A%84cookie/"/>
+    <id>http://example.com/2023/02/19/%E4%BD%BF%E7%94%A8Charles%E6%8A%93%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E4%B8%AD%E7%9A%84cookie/</id>
+    <published>2023-02-19T10:23:21.000Z</published>
+    <updated>2023-02-24T08:18:13.655Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;配置代理服务器:&lt;/strong&gt;&lt;br&gt;在Charles中，选择“Proxy”菜单，然后选择“Proxy Settings”。在弹出的窗口中，选择“Proxy”选项卡，然后选择“Enable transparent HTTP</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://example.com/categories/tools/"/>
+    
+    
+    <category term="抓包" scheme="http://example.com/tags/%E6%8A%93%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Etcd 数据备份</title>
+    <link href="http://example.com/2023/02/17/Etcd-%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD/"/>
+    <id>http://example.com/2023/02/17/Etcd-%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD/</id>
+    <published>2023-02-17T14:10:07.000Z</published>
+    <updated>2023-02-24T08:17:39.079Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Kubernetes 中，etcd 是一个重要的组件，用于存储所有的集群数据。如果想要备份 etcd 数据，可以直接备份 etcd 数据目录，通常位于 &lt;code&gt;/var/lib/etcd/&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;etcd</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="http://example.com/categories/kubernetes/"/>
+    
+    
+    <category term="etcd" scheme="http://example.com/tags/etcd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>markdown-emoji</title>
+    <link href="http://example.com/2023/02/17/markdown-emoji/"/>
+    <id>http://example.com/2023/02/17/markdown-emoji/</id>
+    <published>2023-02-17T09:54:28.000Z</published>
+    <updated>2023-02-24T08:14:18.682Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Markdown 中插入表情可以使用 Emoji 表情符号。这些表情符号是基于 Unicode 编码的，可以在 Markdown 中直接使用。&lt;/p&gt;
+&lt;p&gt;下面是一些常用的 Emoji 表情符号：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;:smile:</summary>
+        
+      
+    
+    
+    
+    <category term="Tools" scheme="http://example.com/categories/Tools/"/>
+    
+    
+    <category term="emoji" scheme="http://example.com/tags/emoji/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8s相关面试问题</title>
+    <link href="http://example.com/2023/02/17/k8s%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2023/02/17/k8s%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/</id>
+    <published>2023-02-17T09:01:16.000Z</published>
+    <updated>2023-02-17T09:48:57.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Kubernetes 中的容器是如何启动和停止的？&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight-wrap&quot; data-rel=&quot;Bash&quot;&gt;&lt;figure class=&quot;iseeu highlight</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="http://example.com/categories/kubernetes/"/>
+    
+    
+    <category term="面试" scheme="http://example.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo cactus使用fancybox放大图片</title>
+    <link href="http://example.com/2023/02/15/hexo-cactus%E4%BD%BF%E7%94%A8fancybox%E6%94%BE%E5%A4%A7%E5%9B%BE%E7%89%87/"/>
+    <id>http://example.com/2023/02/15/hexo-cactus%E4%BD%BF%E7%94%A8fancybox%E6%94%BE%E5%A4%A7%E5%9B%BE%E7%89%87/</id>
+    <published>2023-02-15T10:54:26.000Z</published>
+    <updated>2023-02-24T08:18:48.070Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;先欠着～还是没时间&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://example.com/categories/tools/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo-cactus-theme代码块优化</title>
+    <link href="http://example.com/2023/02/15/hexo-cactus-theme%E4%BB%A3%E7%A0%81%E5%9D%97%E4%BC%98%E5%8C%96/"/>
+    <id>http://example.com/2023/02/15/hexo-cactus-theme%E4%BB%A3%E7%A0%81%E5%9D%97%E4%BC%98%E5%8C%96/</id>
+    <published>2023-02-15T10:53:12.000Z</published>
+    <updated>2023-02-24T08:18:39.532Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;也先欠着～&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://example.com/categories/tools/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kubernetes 版本升级(V1.21-V1.22)</title>
+    <link href="http://example.com/2023/02/13/kubernetes%20%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7(V1.21-V1.22)/"/>
+    <id>http://example.com/2023/02/13/kubernetes%20%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7(V1.21-V1.22)/</id>
+    <published>2023-02-13T09:46:11.000Z</published>
+    <updated>2023-02-13T09:46:11.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;span id=&quot;前言&quot;&gt;#前言：&lt;/span&gt;&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;由于阿里云 ack 集群 1.20 版本会于 2023&amp;#x2F;4</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="http://example.com/categories/kubernetes/"/>
+    
+    
+    <category term="update" scheme="http://example.com/tags/update/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于linux中inode的一些理解</title>
+    <link href="http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/"/>
+    <id>http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</id>
+    <published>2023-01-05T09:28:30.000Z</published>
+    <updated>2023-01-05T09:28:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Linux 文件系统中，每个文件和目录都有一个对应的 inode（index node），用于存储文件和目录的元数据。inode 包含了文件或目录的所有属性，例如文件类型、权限、所有者、创建时间、大小等信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;inode</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="inode" scheme="http://example.com/tags/inode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何驱逐节点上的所有Pod</title>
+    <link href="http://example.com/2023/01/05/%E5%A6%82%E4%BD%95%E9%A9%B1%E9%80%90%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E6%89%80%E6%9C%89Pod/"/>
+    <id>http://example.com/2023/01/05/%E5%A6%82%E4%BD%95%E9%A9%B1%E9%80%90%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E6%89%80%E6%9C%89Pod/</id>
+    <published>2023-01-05T09:28:30.000Z</published>
+    <updated>2023-01-05T09:28:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;使用 &lt;strong&gt;kubectl drain&lt;/strong&gt; 命令从节点安全地逐出所有 Pod。&lt;/p&gt;
+&lt;p&gt;说明：&lt;/p&gt;
+&lt;p&gt;默认情况下，&lt;strong&gt;kubectl drain&lt;/strong&gt; 命令会保留某些系统级 Pod 不被驱逐，例如</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="http://example.com/categories/kubernetes/"/>
+    
+    
+    <category term="pod" scheme="http://example.com/tags/pod/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo 使用说明</title>
+    <link href="http://example.com/2022/12/05/Hexo%20%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
+    <id>http://example.com/2022/12/05/Hexo%20%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</id>
+    <published>2022-12-05T09:46:11.000Z</published>
+    <updated>2022-12-05T09:47:11.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://example.com/categories/tools/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello world</title>
+    <link href="http://example.com/2022/01/05/hello%20world/"/>
+    <id>http://example.com/2022/01/05/hello%20world/</id>
+    <published>2022-01-05T09:46:11.000Z</published>
+    <updated>2022-01-05T09:46:11.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;hello world.&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="test" scheme="http://example.com/categories/test/"/>
+    
+    
+    <category term="test" scheme="http://example.com/tags/test/"/>
+    
+  </entry>
+  
+</feed>
