@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="背景：  测试服更新完1.22.1版本之后。work节点状态一直处于Ready和NotReady循环。 环境：  kubernetes version:  v1.22.1  systemd version: 219-78.el7_9.3.x86_64 centos7.6: 3.10.0-957.21.3.el7.x86_64 docker version: 20.10.7  什么是PLEG？PLE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debug PLEG is not healthy 问题">
+<meta property="og:url" content="http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Ayden&#39;Blog">
+<meta property="og:description" content="背景：  测试服更新完1.22.1版本之后。work节点状态一直处于Ready和NotReady循环。 环境：  kubernetes version:  v1.22.1  systemd version: 219-78.el7_9.3.x86_64 centos7.6: 3.10.0-957.21.3.el7.x86_64 docker version: 20.10.7  什么是PLEG？PLE">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png">
+<meta property="og:image" content="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301161425.png">
+<meta property="og:image" content="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301154626.png">
+<meta property="og:image" content="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301181345.png">
+<meta property="article:published_time" content="2023-03-01T07:29:22.000Z">
+<meta property="article:modified_time" content="2023-03-02T03:42:50.614Z">
+<meta property="article:author" content="Ayden">
+<meta property="article:tag" content="pleg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Debug PLEG is not healthy 问题</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Ayden&#39;Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/isayden/isayden.github.io.git">Projects</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/02/21/Git-%E9%85%8D%E7%BD%AE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&text=Debug PLEG is not healthy 问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&is_video=false&description=Debug PLEG is not healthy 问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Debug PLEG is not healthy 问题&body=Check out this article: http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&name=Debug PLEG is not healthy 问题&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&t=Debug PLEG is not healthy 问题"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Debug PLEG is not healthy 问题
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Ayden</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-03-01T07:29:22.000Z" itemprop="datePublished">2023-03-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/kubernetes/">kubernetes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/pleg/" rel="tag">pleg</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><em>背景：</em></p>
+<hr>
+<p>测试服更新完1.22.1版本之后。work节点状态一直处于<code>Ready</code>和<code>NotReady</code>循环。</p>
+<p><em>环境：</em></p>
+<ul>
+<li>kubernetes version:  <code>v1.22.1</code> </li>
+<li>systemd version: <code>219-78.el7_9.3.x86_64</code></li>
+<li>centos7.6: <code>3.10.0-957.21.3.el7.x86_64</code></li>
+<li>docker version: <code>20.10.7</code></li>
+</ul>
+<p><em>什么是PLEG？</em><br>PLEG（Process Group and Event Monitor）是Kubernetes节点上的一个组件，用于监视节点上容器的状态并保持同步。<br><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png" alt="image.png"></p>
+<p><em>为什么会出现PLEG is not healthy：</em><br>Kubelet 定期在 <code>SyncLoop()</code> 中调用 <code>Healthy()</code> 函数，以检查 PLEG 是否健康。</p>
+<p><code>Healthy()</code> 函数会检查 <code>relist</code> 进程（PLEG 的关键任务）是否在 3 分钟内完成。这个函数被添加到<code> runtimeState</code> 中，命名为 “<em>PLEG</em>”，默认情况下会每隔 10 秒定期调用。如果 relist 进程的完成时间超过 3 分钟，就会通过堆栈报告“PLEG is not healthy”问题。</p>
+<p><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301161425.png" alt="image.png"></p>
+<p><em>通过日志查看错误信息：</em><br>查看节点状态，确认具体存在问题的节点</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]<span class="comment"># k get  node  -w </span></span><br><span class="line">NAME         STATUS   ROLES                  AGE    VERSION</span><br><span class="line">k8s-master   Ready    control-plane,master   578d   v1.22.1</span><br><span class="line">k8s-node-1   Ready    &lt;none&gt;                 578d   v1.22.1</span><br><span class="line">k8s-node-2   Ready    &lt;none&gt;                 578d   v1.22.1</span><br><span class="line"></span><br><span class="line">k8s-node-1   NotReady   &lt;none&gt;                 578d   v1.22.1</span><br><span class="line">k8s-node-1   NotReady   &lt;none&gt;                 578d   v1.22.1</span><br></pre></td></tr></table></figure></div>
+<p>查看节点具体错误信息  PLEG is not healthy: pleg was last seen active 3m53.912072577s ago; threshold is 3m0s</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]<span class="comment"># k describe   node   k8s-node-1 </span></span><br></pre></td></tr></table></figure></div>
+<p><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301154626.png" alt="image.png"></p>
+<p>或者登陆至节点上查看<code> tailf /var/log/messages</code>  &amp; <code>journalctl -u kubelet </code>  </p>
+<div class="highlight-wrap" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.477667    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.195184382s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.578020    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.295485785s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.779109    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.496623713s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:29 k8s-node-1 kubelet: E0301 15:52:29.179871    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.897376539s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:29 k8s-node-1 kubelet: E0301 15:52:29.980449    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m1.697955309s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:31 k8s-node-1 kubelet: E0301 15:52:31.580596    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m3.298092327s ago; threshold is 3m0s&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><em>确认导致PLEG-is-not-healthy的原因：</em><br>在Kubernetes中，kubelet启动时会调用Systemd API来检查节点上各个容器的状态，并将其报告给Kubernetes控制平面。具体来说，kubelet会在启动时连接到Systemd守护进程（systemd daemon），并监听systemd的D-Bus接口。然后kubelet就可以通过<code>D-Bus</code>接口调用systemd提供的API，比如查询容器状态、停止、重启等操作。</p>
+<p>在kubelet中，PLEG（Pod Lifecycle Event Generator) 会定期检查Pod中的容器是否健康。当发现容器不健康时，会产生相应的事件通知给kubelet处理。PLEG会通过调用Systemd的API来查询容器的状态，如果发现Systemd的cookie值溢出，就会产生“PLEG is not healthy”错误，从而影响容器的健康状态。</p>
+<p><em>首先在问题节点安装gdb 和 systemd debuginfo：</em></p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#systemd-debuginfo包必须和systemd版本一一对应。否则可能一堆问题。。</span></span><br><span class="line">rpm -qa | grep systemd </span><br><span class="line">yum install systemd-debuginfo-xxxxxx</span><br></pre></td></tr></table></figure></div>
+
+<p>然后使用命令把 gdb attach 到 systemd</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-1 ~]<span class="comment"># gdb /var/lib/systemd/systemd &lt;pid&gt;</span></span><br><span class="line"><span class="comment">#systemd的pid</span></span><br><span class="line"></span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-120.el7</span><br><span class="line">Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">&quot;show copying&quot;</span></span><br><span class="line">and <span class="string">&quot;show warranty&quot;</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">&quot;x86_64-redhat-linux-gnu&quot;</span>.</span><br></pre></td></tr></table></figure></div>
+<p>在函数sd_bus_send 设置断点</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">break</span> sd_bus_send</span><br><span class="line">Breakpoint 1 at 0x56269764c3b0: file src/libsystemd/sd-bus/sd-bus.c, line 1755.</span><br></pre></td></tr></table></figure></div>
+
+<p>继续执行</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">continue</span> </span><br><span class="line">Continuing.</span><br><span class="line"><span class="comment">#可以看到 此时程序已经踩到了断点处 </span></span><br><span class="line"></span><br><span class="line">Breakpoint 1, sd_bus_send (bus=bus@entry=0x56269918e320, m=0x562699316540, cookie=cookie@entry=0x0) at src/libsystemd/sd-bus/sd-bus.c:1755</span><br><span class="line">1755            <span class="built_in">return</span> bus_send_internal(bus, m, cookie, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></div>
+<p>用<code>p /x bus-&gt;cookie </code>查看对应的cookie值</p>
+<div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) p /x bus-&gt;cookie </span><br><span class="line"><span class="variable">$1</span> = 0x31f96434</span><br></pre></td></tr></table></figure></div>
+<p>判断此值超过<code>0xffffffff</code><br>就证明cookie溢出，必然会导致节点NotReady<br>怎么判断呢。交给chatgpt发挥吧<br><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301181345.png" alt="image.png"></p>
+<p>确认了cookie溢出之后就可以使用 quit 来 detach 调试器</p>
+<p><em>解决cookie溢出问题：</em><br>更新systemd</p>
+<div class="highlight-wrap" data-rel="Nsis"><figure class="iseeu highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y <span class="params">system</span>d &amp;&amp; <span class="params">system</span>ctl daemon-reexec</span><br></pre></td></tr></table></figure></div>
+
+<p>tips：<code>systemctl daemon-reexec</code>用于重新启动systemd进程，同时将新的systemd二进制文件加载到内存中,以确保在不需要重启系统的情况下使用新的systemd版本。执行此命令将使systemd重新加载其所有配置文件并重新启动所有单元。</p>
+<p>升级完systemd之后最好重启下节点的<code>docker</code>和<code>kubelet</code>进程。再次查看节点上的日志。发现PLEG已经不存在了。并且节点Ready状态稳定。</p>
+<p><em>参考：</em></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes/issues/45419?spm=a2c4g.11186623.0.0.160a1040x18A5o">Node flapping between Ready&#x2F;NotReady with PLEG issues</a><br><a target="_blank" rel="noopener" href="https://developers.redhat.com/blog/2019/11/13/pod-lifecycle-event-generator-understanding-the-pleg-is-not-healthy-issue-in-kubernetes#conclusions">Pod Lifecycle Event Generator: Understanding the “PLEG is not healthy” issue in Kubernetes</a><br><a target="_blank" rel="noopener" href="https://github.com/kubermatic/machine-controller/issues/989">PLEG is not healthy - Ubuntu 20.04 - runc issue</a><br><a target="_blank" rel="noopener" href="https://github.com/DataBiosphere/toil/issues/4246">Make Kubernetes batch system deal with pods that can’t be deleted</a><br><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes/pull/101524">kubelet: do not cleanup volumes if pod is being killed</a><br><a target="_blank" rel="noopener" href="https://github.com/openshift/origin/blob/release-3.11/vendor/k8s.io/kubernetes/pkg/kubelet/pleg/generic.go#L180-L284">relist in kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;pleg&#x2F;generic.go</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/isayden/isayden.github.io.git">Projects</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&text=Debug PLEG is not healthy 问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&is_video=false&description=Debug PLEG is not healthy 问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Debug PLEG is not healthy 问题&body=Check out this article: http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&title=Debug PLEG is not healthy 问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&name=Debug PLEG is not healthy 问题&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/&t=Debug PLEG is not healthy 问题"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Ayden
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/isayden/isayden.github.io.git">Projects</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

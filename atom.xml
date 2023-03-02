@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-02-24T08:18:19.683Z</updated>
+  <updated>2023-03-02T03:42:50.614Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Debug PLEG is not healthy 问题</title>
+    <link href="http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2023/03/01/Debug-PLEG-is-not-healthy-%E9%97%AE%E9%A2%98/</id>
+    <published>2023-03-01T07:29:22.000Z</published>
+    <updated>2023-03-02T03:42:50.614Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;em&gt;背景：&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;测试服更新完1.22.1版本之后。work节点状态一直处于&lt;code&gt;Ready&lt;/code&gt;和&lt;code&gt;NotReady&lt;/code&gt;循环。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;环境：&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;kubern</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="http://example.com/categories/kubernetes/"/>
+    
+    
+    <category term="pleg" scheme="http://example.com/tags/pleg/"/>
+    
+  </entry>
   
   <entry>
     <title>Git 配置</title>
