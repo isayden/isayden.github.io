@@ -61,6 +61,9 @@
 	
 <meta name="generator" content="Hexo 6.3.0"></head>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+
 <body class="max-width mx-auto px3 ltr">
     
       <div id="header-post">
@@ -175,15 +178,15 @@
 <li>centos7.6: <code>3.10.0-957.21.3.el7.x86_64</code></li>
 <li>docker version: <code>20.10.7</code></li>
 </ul>
-<p><em>什么是PLEG？</em><br>PLEG（Process Group and Event Monitor）是Kubernetes节点上的一个组件，用于监视节点上容器的状态并保持同步。<br><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png" alt="image.png"></p>
+<p><em>什么是PLEG？</em><br>PLEG（Process Group and Event Monitor）是Kubernetes节点上的一个组件，用于监视节点上容器的状态并保持同步。<br><a data-fancybox="gallery" data-src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png" data-caption="image.png"><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301162050.png" alt="image.png"></a></p>
 <p><em>为什么会出现PLEG is not healthy：</em><br>Kubelet 定期在 <code>SyncLoop()</code> 中调用 <code>Healthy()</code> 函数，以检查 PLEG 是否健康。</p>
 <p><code>Healthy()</code> 函数会检查 <code>relist</code> 进程（PLEG 的关键任务）是否在 3 分钟内完成。这个函数被添加到<code> runtimeState</code> 中，命名为 “<em>PLEG</em>”，默认情况下会每隔 10 秒定期调用。如果 relist 进程的完成时间超过 3 分钟，就会通过堆栈报告“PLEG is not healthy”问题。</p>
-<p><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301161425.png" alt="image.png"></p>
+<p><a data-fancybox="gallery" data-src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301161425.png" data-caption="image.png"><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301161425.png" alt="image.png"></a></p>
 <p><em>通过日志查看错误信息：</em><br>查看节点状态，确认具体存在问题的节点</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]<span class="comment"># k get  node  -w </span></span><br><span class="line">NAME         STATUS   ROLES                  AGE    VERSION</span><br><span class="line">k8s-master   Ready    control-plane,master   578d   v1.22.1</span><br><span class="line">k8s-node-1   Ready    &lt;none&gt;                 578d   v1.22.1</span><br><span class="line">k8s-node-2   Ready    &lt;none&gt;                 578d   v1.22.1</span><br><span class="line"></span><br><span class="line">k8s-node-1   NotReady   &lt;none&gt;                 578d   v1.22.1</span><br><span class="line">k8s-node-1   NotReady   &lt;none&gt;                 578d   v1.22.1</span><br></pre></td></tr></table></figure></div>
 <p>查看节点具体错误信息  PLEG is not healthy: pleg was last seen active 3m53.912072577s ago; threshold is 3m0s</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]<span class="comment"># k describe   node   k8s-node-1 </span></span><br></pre></td></tr></table></figure></div>
-<p><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301154626.png" alt="image.png"></p>
+<p><a data-fancybox="gallery" data-src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301154626.png" data-caption="image.png"><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301154626.png" alt="image.png"></a></p>
 <p>或者登陆至节点上查看<code> tailf /var/log/messages</code>  &amp; <code>journalctl -u kubelet </code>  </p>
 <div class="highlight-wrap" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.477667    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.195184382s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.578020    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.295485785s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:28 k8s-node-1 kubelet: E0301 15:52:28.779109    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.496623713s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:29 k8s-node-1 kubelet: E0301 15:52:29.179871    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m0.897376539s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:29 k8s-node-1 kubelet: E0301 15:52:29.980449    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m1.697955309s ago; threshold is 3m0s&quot;</span><br><span class="line">Mar  1 15:52:31 k8s-node-1 kubelet: E0301 15:52:31.580596    3031 kubelet.go:1991] &quot;Skipping pod synchronization&quot; err=&quot;PLEG is not healthy: pleg was last seen active 3m3.298092327s ago; threshold is 3m0s&quot;</span><br></pre></td></tr></table></figure></div>
 
@@ -201,7 +204,7 @@
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">continue</span> </span><br><span class="line">Continuing.</span><br><span class="line"><span class="comment">#可以看到 此时程序已经踩到了断点处 </span></span><br><span class="line"></span><br><span class="line">Breakpoint 1, sd_bus_send (bus=bus@entry=0x56269918e320, m=0x562699316540, cookie=cookie@entry=0x0) at src/libsystemd/sd-bus/sd-bus.c:1755</span><br><span class="line">1755            <span class="built_in">return</span> bus_send_internal(bus, m, cookie, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></div>
 <p>用<code>p /x bus-&gt;cookie </code>查看对应的cookie值</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) p /x bus-&gt;cookie </span><br><span class="line"><span class="variable">$1</span> = 0x31f96434</span><br></pre></td></tr></table></figure></div>
-<p>判断此值超过<code>0xffffffff</code><br>就证明cookie溢出，必然会导致节点NotReady<br>怎么判断呢。交给chatgpt发挥吧<br><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301181345.png" alt="image.png"></p>
+<p>判断此值超过<code>0xffffffff</code><br>就证明cookie溢出，必然会导致节点NotReady<br>怎么判断呢。交给chatgpt发挥吧<br><a data-fancybox="gallery" data-src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301181345.png" data-caption="image.png"><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230301181345.png" alt="image.png"></a></p>
 <p>确认了cookie溢出之后就可以使用 quit 来 detach 调试器</p>
 <p><em>解决cookie溢出问题：</em><br>更新systemd</p>
 <div class="highlight-wrap" data-rel="Nsis"><figure class="iseeu highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y <span class="params">system</span>d &amp;&amp; <span class="params">system</span>ctl daemon-reexec</span><br></pre></td></tr></table></figure></div>
@@ -347,6 +350,10 @@
 <!-- Disqus Comments -->
 
 <!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
 </body>
 </html>

@@ -58,6 +58,9 @@
 	
 <meta name="generator" content="Hexo 6.3.0"></head>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+
 <body class="max-width mx-auto px3 ltr">
     
       <div id="header-post">
@@ -173,7 +176,7 @@
 <p><strong>数据恢复</strong><br>kubeadm安装的单节点master集群，使用的API VERSION为<code>V3</code><br>备份ETCDCTL_API为 3 的 etcd 数据到之前的备份目录下</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETCDCTL_API=3 etcdctl --endpoints=<span class="string">&quot;https://127.0.0.1:2379&quot;</span>  --cert=<span class="string">&quot;/etc/kubernetes/pki/etcd/server.crt&quot;</span>  --key=<span class="string">&quot;/etc/kubernetes/pki/etcd/server.key&quot;</span>  --cacert=<span class="string">&quot;/etc/kubernetes/pki/etcd/ca.crt&quot;</span>   snapshot save /backup_$(<span class="built_in">date</span> +%Y%m%d)/snap-$(<span class="built_in">date</span> +%Y%m%d%H%M).db</span><br></pre></td></tr></table></figure></div>
 
-<p>需要先停掉 Master 节点的 kube-apiserver 和 etcd 容器，确保 kube-apiserver 已经停止了。<br>备注：&#x2F;etc&#x2F;kubernetes&#x2F;manifests 这个目录就是 master 自动运行的一些容器，将其移走或者重命名，自然就会停止了。<br><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230224154221.png" alt="image.png"><br>停掉 Master 机器的 kube-apiserver 和 etcd</p>
+<p>需要先停掉 Master 节点的 kube-apiserver 和 etcd 容器，确保 kube-apiserver 已经停止了。<br>备注：&#x2F;etc&#x2F;kubernetes&#x2F;manifests 这个目录就是 master 自动运行的一些容器，将其移走或者重命名，自然就会停止了。<br><a data-fancybox="gallery" data-src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230224154221.png" data-caption="image.png"><img src="https://notespicture.oss-cn-beijing.aliyuncs.com/20230224154221.png" alt="image.png"></a><br>停掉 Master 机器的 kube-apiserver 和 etcd</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> manifests  manifests.bak</span><br></pre></td></tr></table></figure></div>
 <p>查看 etcd、api 是否 up，等待全部停止</p>
 <div class="highlight-wrap" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps | grep k8s_ </span><br></pre></td></tr></table></figure></div>
@@ -322,6 +325,10 @@
 <!-- Disqus Comments -->
 
 <!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
 </body>
 </html>

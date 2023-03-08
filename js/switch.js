@@ -11,4 +11,15 @@ function switchNightMode() {
     }
 }
 
-
+(function(){//console.log("dark = ", localStorage.getItem("dark"));
+if (localStorage.getItem == "null"){
+    localStorage.setItem("dark", true);
+}
+if (localStorage.getItem("dark") == "true"){
+    // console.log("a");
+    switchToDark();
+} else {
+    // console.log("b");
+    switchToLight();
+}
+})();
