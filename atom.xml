@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-03-02T07:10:35.351Z</updated>
+  <updated>2023-03-07T06:06:05.326Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>生活&amp;梦想</title>
+    <link href="http://example.com/2023/03/07/%E7%94%9F%E6%B4%BB-%E6%A2%A6%E6%83%B3/"/>
+    <id>http://example.com/2023/03/07/%E7%94%9F%E6%B4%BB-%E6%A2%A6%E6%83%B3/</id>
+    <published>2023-03-07T05:54:38.000Z</published>
+    <updated>2023-03-07T06:06:05.326Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;突然有感而发问了chatgpt一个问题，看完真是五味杂陈。&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Debug PLEG is not healthy 问题</title>
@@ -69,53 +91,6 @@
     
     
     <category term="git" scheme="http://example.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2023/02/19/privateNotes/kubernetes/Learn%20a%20little%20every%20day/"/>
-    <id>http://example.com/2023/02/19/privateNotes/kubernetes/Learn%20a%20little%20every%20day/</id>
-    <published>2023-02-19T13:45:31.542Z</published>
-    <updated>2023-02-20T10:24:46.333Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;div class=&quot;highlight-wrap&quot; data-rel=&quot;Bash&quot;&gt;&lt;figure class=&quot;iseeu highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2023/02/19/privateNotes/prometheus/Learn%20a%20little%20every%20day/"/>
-    <id>http://example.com/2023/02/19/privateNotes/prometheus/Learn%20a%20little%20every%20day/</id>
-    <published>2023-02-19T13:45:25.709Z</published>
-    <updated>2023-02-20T10:24:43.557Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2023/02/19/privateNotes/python/Learn%20a%20little%20every%20day/"/>
-    <id>http://example.com/2023/02/19/privateNotes/python/Learn%20a%20little%20every%20day/</id>
-    <published>2023-02-19T13:44:52.310Z</published>
-    <updated>2023-02-21T02:25:31.077Z</updated>
-    
-    
-    
-    
     
   </entry>
   
@@ -303,33 +278,6 @@
   </entry>
   
   <entry>
-    <title>关于linux中inode的一些理解</title>
-    <link href="http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/"/>
-    <id>http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</id>
-    <published>2023-01-05T09:28:30.000Z</published>
-    <updated>2023-01-05T09:28:30.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 Linux 文件系统中，每个文件和目录都有一个对应的 inode（index node），用于存储文件和目录的元数据。inode 包含了文件或目录的所有属性，例如文件类型、权限、所有者、创建时间、大小等信息。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;inode</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://example.com/categories/linux/"/>
-    
-    
-    <category term="inode" scheme="http://example.com/tags/inode/"/>
-    
-  </entry>
-  
-  <entry>
     <title>如何驱逐节点上的所有Pod</title>
     <link href="http://example.com/2023/01/05/%E5%A6%82%E4%BD%95%E9%A9%B1%E9%80%90%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E6%89%80%E6%9C%89Pod/"/>
     <id>http://example.com/2023/01/05/%E5%A6%82%E4%BD%95%E9%A9%B1%E9%80%90%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E6%89%80%E6%9C%89Pod/</id>
@@ -353,6 +301,33 @@
     
     
     <category term="pod" scheme="http://example.com/tags/pod/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于linux中inode的一些理解</title>
+    <link href="http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/"/>
+    <id>http://example.com/2023/01/05/%E5%85%B3%E4%BA%8Elinux%E4%B8%ADinode%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</id>
+    <published>2023-01-05T09:28:30.000Z</published>
+    <updated>2023-01-05T09:28:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Linux 文件系统中，每个文件和目录都有一个对应的 inode（index node），用于存储文件和目录的元数据。inode 包含了文件或目录的所有属性，例如文件类型、权限、所有者、创建时间、大小等信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;inode</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="inode" scheme="http://example.com/tags/inode/"/>
     
   </entry>
   
